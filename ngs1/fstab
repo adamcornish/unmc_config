@@ -1,0 +1,18 @@
+
+#
+# /etc/fstab
+# Created by anaconda on Tue Nov 22 12:44:33 2011
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=cfd5eafa-8ab1-4e3e-89fe-2206aa3f4ba7 /                       ext4    defaults        1 1
+UUID=34ee9185-0bac-4621-a16f-52cbfc2d2d6c /boot                   ext4    defaults        1 2
+UUID=5433f61f-af5a-4ae4-b6a4-44ba2aaf3773 swap                    swap    defaults        0 0
+LABEL=vma               /vma                    ext4    defaults        1 2
+LABEL=vmb               /vmb                    ext4    defaults        1 2
+LABEL=vmc               /vmc                    ext4    defaults        1 2
+#LABEL=tmp               /tmp                    ext4    defaults        1 2
+LABEL=safer             /safer                  xfs     largeio,logbsize=262144,logbufs=8,nobarrier         1 2
+LABEL=faster            /faster                 xfs     largeio,inode64,sunit=512,swidth=7680,nobarrier   1 2
+#LABEL=fusion-io         /fusion-io              xfs     largeio,inode64,sunit=512,swidth=2048,nobarrier   1 2

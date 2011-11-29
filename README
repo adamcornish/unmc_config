@@ -1,1 +1,6 @@
 This contains all the configuration files needed for the OS as well as a list of all the various programs needed to start from a fresh install.
+Directory structure:
+    ngs0 - ngs0 specific config files
+    ngs1 - ngs1 specific config files
+    ngs2 - ngs2 specific config files
+    ./   - these files will be identical on all the servers

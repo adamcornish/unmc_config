@@ -1,0 +1,4 @@
+This contains all of the configuration files specific to ngs1 as well as a list of rpms currently installed on this system:
+    /etc/fstab
+    /etc/samba/smb.conf
+    rpm -qa | sort > rpms.txt

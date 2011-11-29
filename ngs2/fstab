@@ -1,0 +1,25 @@
+
+#
+# /etc/fstab
+# Created by anaconda on Tue May  3 14:01:58 2011
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/vg_ngs2-lv_root /                       ext4    defaults        1 1
+UUID=10a52a24-9230-49db-b1e1-64f4fd1af4d2 /boot                   ext4    defaults        1 2
+/dev/mapper/vg_ngs2-lv_home /home                   ext4    defaults        1 2
+/dev/mapper/vg_ngs2-lv_illumina /illumina               ext4    defaults        1 2
+/dev/mapper/vg_ngs2-lv_var /var                    ext4    defaults        1 2
+/dev/mapper/vg_ngs2-lv_var_log /var/log                ext4    defaults        1 2
+#/dev/mapper/vg_ngs2-lv_swap swap                    swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+LABEL=vma               /vma                    ext4    defaults        1 2
+LABEL=vmb               /vmb                    ext4    defaults        1 2
+LABEL=vmc               /vmc                    ext4    defaults        1 2
+LABEL=tmp               /tmp                    ext4    defaults        1 2
+LABEL=faster            /faster                 xfs     largeio,logbsize=262144,logbufs=8,nobarrier         1 2
+LABEL=safer             /safer                  xfs     largeio,logbsize=262144,logbufs=8,nobarrier         1 2
