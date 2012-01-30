@@ -1,0 +1,80 @@
+Reinstalling new OS on 8-way servers.
+    Disconnect the attached storage array first.
+    Then start the install.
+    Edit fstab file
+        LABEL=fast_swap swap    swap    defaults    0 0
+        LABEL=faster    /faster xfs     largeio,inode64,sunit=2056,swidth=30840,nobarrier 0 0
+        LABEL=safer     /safer  xfs     largeio,logbsize=262144,logbufs=8,nobarrier 1 2
+        LABEL=tmp       /tmp    ext4    defaults    1 2
+
+    Set up the network
+        10-gig_1    = 10.9.2.235
+        10-gig_2    = 10.9.2.236
+            Gateway = 10.9.2.254
+            Mask    = 255.255.0
+            DNS1    = 10.8.2.31
+            DNS2    = 10.8.3.20
+            Domain  = unmc.edu 
+    systemctl restart network
+    yum -y update
+    reboot
+    # reattach the attached storage array
+
+
+Setting up vncserver on Fedora 16:
+
+    sysetmctl stop iptables.service
+    yum -y install tigervnc-server
+    cd /lib/systemd/system/
+    cp vncserver@.service vncserver@:3.service
+    vim vncserver@\:3.service
+    # Under [Service] make sure these lines exist:
+        Type=forking
+        User=sbsuser
+        ExecStart=/usr/bin/vncserver %i -geometry 1280x1024
+        ExecStop=/usr/bin/vncserver -kill %i
+    systemctl daemon-reload
+    su - sbsuser
+    vncpasswd # enter your password
+    exit
+    systemctl enable vncserver@\:3.service
+    systemctl start vncserver@\:3.service
+
+Setting up samba
+
+    setsebool -P samba_domain_controller on
+    setsebool -P samba_enable_home_dirs on
+    # Do this on the folders you want shared
+    chcon --recursive -t samba_share_t *
+    setsebool -P samba_export_all_rw on
+    # New samba config:
+        #======================= Global Settings =====================================
+
+        [global]
+
+            workgroup = UNMC
+            server string = Samba Server Version %v
+            security = share
+            passdb backend = tdbsam
+        #============================ Share Definitions ==============================
+
+        [faster]
+            path = /faster
+            force create mode = 0775
+            force directory mode = 0777
+            force group = sbsuser
+            force user = sbsuser
+            guest ok = yes
+            public = yes
+            writable = yes
+
+        [safer]
+            path = /safer
+            force create mode = 0775
+            force directory mode = 0777
+            force group = sbsuser
+            force user = sbsuser
+            guest ok = yes
+            public = yes
+            writable = yes
+            
